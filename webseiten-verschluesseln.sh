@@ -19,9 +19,13 @@ echo -e "$rot ===================================================$gruen"
 sleep 2
 clear
 if [[ "$antwort" == "Y" || "$antwort" == "y" ]]; then
-    echo "Server wird aktualisiert..."
+    echo -e "$rot ==================================================="
+    echo -e "$gruen Server wird aktualisiert..."
+    echo -e "$rot ==================================================="
     sudo apt update && sudo apt upgrade -y
-    echo "Update abgeschlossen!"
+    echo -e "$rot ==================================================="
+    echo -e "$gruen Update abgeschlossen!"
+    echo -e "$rot ==================================================="
     sleep 3
     clear
 elif [[ "$antwort" == "N" || "$antwort" == "n" ]]; then
@@ -66,4 +70,4 @@ echo -e ""
 echo -e "$cyan $Deine Webseite ist unter folgende Domain erreichbar"
 echo -e "                $gruen https://$domain"
 echo -e "$rot ==================================================="
-
+sleep 5
