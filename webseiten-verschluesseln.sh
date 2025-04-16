@@ -11,21 +11,43 @@ magenta='\033[0;35m'
 cyan='\033[0;36m'
 
 #Server wird als erstes Upgedatet
-apt update -y && apt-upgrade -y
 echo -e "$rot ==================================================="
 echo -e "$gelb Webseiten Verschluesseln / SSL"
 echo -e ""
-echo -e "$cyan Bitte gib die Domain ein"
+echo -e "$cyan Soll der Server geupdatet werden? Y=Ja, N=Nein" $gruen read antwort
 echo -e "$rot ===================================================$gruen"
-read domain
-
+sleep 2
+clear
+if [[ "$antwort" == "Y" || "$antwort" == "y" ]]; then
+    echo "Server wird aktualisiert..."
+    sudo apt update && sudo apt upgrade -y
+    echo "Update abgeschlossen!"
+    sleep 3
+    clear
+elif [[ "$antwort" == "N" || "$antwort" == "n" ]]; then
+    echo "Update abgebrochen."
+    sleep 4
+    clear
+else
+    echo "Ungültige Eingabe. Bitte Y oder N eingeben."
+    sleep 4
+    clear
+fi
+clear
+echo -e "$rot ==================================================="
+echo -e "$gelb Webseiten Verschluesseln / SSL"
+echo -e ""
+echo -e "$cyan Bitte gib die Domain ein:" $gruen read domain
+echo -e "$rot ===================================================$gruen"
+sleep 2
+clear
 echo -e "$rot ==================================================="
 echo -e "$gelb Webseiten Verschluesseln / SSL"
 echo -e ""
 echo -e "$cyan Bitte gib fuer $domain den Gewuenschten Certnamen"
-echo -e "$cyan ein"
+echo -e "$cyan ein:" $gruen read ordner
 echo -e "$rot ===================================================$gruen"
-read ordner
+sleep 3
 clear
 sudo certbot certonly --authenticator standalone --cert-name $ordner --pre-hook "systemctl stop apache2.service" --post-hook "systemctl start apache2.service" -d $domain
 sleep 5
@@ -34,7 +56,7 @@ clear
 echo -e "$rot ==================================================="
 echo -e "$gelb Webseiten Verschluesseln / SSL"
 echo -e ""
-echo -e "$cyan $blau $domain $cyan mit dem Certnamen $blau $ordner $gruen erstellt!"
+echo -e "$blau $domain $cyan mit dem Certnamen $blau $ordner $gruen erstellt!"
 echo -e "$rot ==================================================="
 sleep 5
 clear
